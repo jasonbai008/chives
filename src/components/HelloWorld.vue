@@ -4,15 +4,30 @@
       <template v-for="(item, i) in dataArr">
         <!-- 单独设置国债指数 -->
         <div v-if="i === 0" :key="i" :class="{ up: item[4] > 0, down: item[4] < 0, item: true }" @click="showChart">
-          <h4>
-            {{ item[1] }} <span>{{ item[2].toFixed(2) }}</span>
-          </h4>
+          <!-- 左 -->
+          <span>
+            <!-- 国旗 -->
+            <img src="../assets/china.png" />
+            <!-- 标题 -->
+            <h4>
+              {{ item[1] }} <span>{{ item[2].toFixed(2) }}</span>
+            </h4>
+          </span>
+          <!-- 涨跌幅 -->
           <span class="rate">{{ item[4].toFixed(2) + " %" }}</span>
         </div>
         <!-- 设置其余指数 -->
         <div v-else :key="i + 'x'" :class="{ up: item[4] > 0, down: item[4] < 0, item: true }">
-          <h4 v-if="item[0] === '000001.SH'">{{ item[1] }} {{ parseInt(item[2]) }}</h4>
-          <h4 v-else>{{ item[1] }}</h4>
+          <!-- 左 -->
+          <span>
+            <!-- 国旗 -->
+            <img src="../assets/us.png" v-if="['US500', 'usNDX'].includes(item[0])" />
+            <img src="../assets/china.png" v-else />
+            <!-- 标题 -->
+            <h4 v-if="item[0] === '000001.SH'">{{ item[1] }} {{ parseInt(item[2]) }}</h4>
+            <h4 v-else>{{ item[1] }}</h4>
+          </span>
+          <!-- 涨跌幅 -->
           <span class="rate" v-if="item[4] > 0">{{ item[4].toFixed(2) + " %" }}</span>
         </div>
       </template>
@@ -110,7 +125,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    padding: 0 20px;
+    padding: 0 20px 0 10px;
     border-bottom: 1px solid #8b8b8b;
     flex-grow: 1;
     color: #eee;
@@ -118,6 +133,16 @@ export default {
     animation: fadeIn 0.5s;
     animation-fill-mode: forwards;
     background: linear-gradient(to right, #333, #bdc3c7);
+    & > span {
+      display: flex;
+      align-items: center;
+      img {
+        width: 30px;
+        opacity: 0.6;
+        margin-right: 10px;
+        border-radius: 3px;
+      }
+    }
     &:last-child {
       border-bottom: none;
     }
