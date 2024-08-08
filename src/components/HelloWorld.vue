@@ -1,9 +1,9 @@
 <template>
   <div class="hello">
-    <div class="wrap" @dblclick="refresh">
+    <div class="wrap">
       <template v-for="(item, i) in dataArr">
         <!-- 单独设置国债指数 -->
-        <div v-if="i === 0" :key="i" :class="{ up: item[4] > 0, down: item[4] < 0, item: true }" @click="showChart">
+        <div v-if="i === 0" :key="i" :class="{ up: item[4] > 0, down: item[4] < 0, item: true }">
           <!-- 左 -->
           <span>
             <!-- 国旗 -->
@@ -45,6 +45,7 @@ export default {
   },
   mounted() {
     this.getData();
+    this.fetchDataInterval();
   },
   methods: {
     // 从腾讯财经官网获取纳斯达克100指数的涨跌幅数据
@@ -100,13 +101,23 @@ export default {
       });
     },
 
-    refresh() {
-      document.title = "更新数据...";
-      this.getData();
+    // 判断当前时间是在上午9点半到下午3点半之间
+    isTimeBetween() {
+      const now = new Date();
+      const start1 = new Date(now.toLocaleDateString() + " 09:30:00");
+      const end1 = new Date(now.toLocaleDateString() + " 11:30:00");
+      const start2 = new Date(now.toLocaleDateString() + " 13:00:00");
+      const end2 = new Date(now.toLocaleDateString() + " 15:30:00"); //国债交易下午3点半才结束
+      return (now >= start1 && now <= end1) || (now >= start2 && now <= end2);
     },
 
-    showChart() {
-      this.$parent.isShowIframe = true;
+    fetchDataInterval() {
+      setInterval(() => {
+        if (this.isTimeBetween()) {
+          document.title = "更新数据...";
+          this.getData();
+        }
+      }, 5000);
     },
   },
 };
