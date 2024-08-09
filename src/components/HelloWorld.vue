@@ -9,12 +9,10 @@
             <!-- 国旗 -->
             <img src="../assets/china.png" />
             <!-- 标题 -->
-            <h4>
-              {{ item[1] }} <span>{{ item[2].toFixed(2) }}</span>
-            </h4>
+            <h4>{{ item[1] }} {{ item[2].toFixed(2) }}</h4>
           </span>
           <!-- 涨跌幅 -->
-          <span class="rate">{{ item[4].toFixed(2) + " %" }}</span>
+          <span :class="['rate', freshFlag ? 'fresh' : '']">{{ item[4].toFixed(2) + " %" }}</span>
         </div>
         <!-- 设置其余指数 -->
         <div v-else :key="i + 'x'" :class="{ up: item[4] > 0, down: item[4] < 0, item: true }">
@@ -28,7 +26,7 @@
             <h4 v-else>{{ item[1] }}</h4>
           </span>
           <!-- 涨跌幅 -->
-          <span class="rate" v-if="item[4] > 0">{{ item[4].toFixed(2) + " %" }}</span>
+          <span :class="{ rate: true, fresh: freshFlag && !['US500', 'usNDX'].includes(item[0]) }" v-if="item[4] > 0">{{ item[4].toFixed(2) + " %" }}</span>
         </div>
       </template>
     </div>
@@ -40,6 +38,7 @@ export default {
   name: "HelloWorld",
   data() {
     return {
+      freshFlag: false,
       dataArr: [],
     };
   },
@@ -96,25 +95,26 @@ export default {
         this.dataArr = dataAll.sort((a, b) => b[4] - a[4]);
         // 在头部插入国债指数
         this.dataArr.unshift(tenYear);
-        // 修改标题
-        setTimeout(() => (document.title = "韭菜看盘"), 500);
+        setTimeout(() => (this.freshFlag = false), 200);
       });
     },
 
     // 判断当前时间是在上午9点半到下午3点半之间
     isTimeBetween() {
       const now = new Date();
+      // 周末的话，返回false
+      if (now.getDay() === 0 || now.getDay() === 6) return false;
       const start1 = new Date(now.toLocaleDateString() + " 09:30:00");
       const end1 = new Date(now.toLocaleDateString() + " 11:30:00");
       const start2 = new Date(now.toLocaleDateString() + " 13:00:00");
-      const end2 = new Date(now.toLocaleDateString() + " 15:30:00"); //国债交易下午3点半才结束
+      const end2 = new Date(now.toLocaleDateString() + " 15:00:00");
       return (now >= start1 && now <= end1) || (now >= start2 && now <= end2);
     },
 
     fetchDataInterval() {
       setInterval(() => {
         if (this.isTimeBetween()) {
-          document.title = "更新数据...";
+          this.freshFlag = true;
           this.getData();
         }
       }, 5000);
@@ -172,6 +172,10 @@ export default {
     span.rate {
       font-style: italic;
       font-size: 20px;
+      padding: 2px;
+    }
+    span.rate.fresh {
+      background: rgba(255, 255, 255, 0.2);
     }
   }
   .item:nth-of-type(1) {
