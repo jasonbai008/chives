@@ -20,8 +20,8 @@ npm run build
 
 ### 数据来源
 
-纳斯达克 100，来自腾讯财经（https://qt.gtimg.cn/q=usNDX）
-其余指数，来自华尔街见闻（`https://api-ddc-wscn.awtmt.com/market/real?fields=${stockIndex}&prod_code=${indexStr}`）
+1. 纳斯达克 100，来自腾讯财经（https://qt.gtimg.cn/q=usNDX）
+2. 其余指数，来自华尔街见闻（https://api-ddc-wscn.awtmt.com/market/real?fields=symbol,en_name,prod_name,last_px,px_change,px_change_rate,update_time&prod_code=US500.OTC）
 
 ### 指数代码
 
@@ -37,9 +37,9 @@ npm run build
 - US30.OTC: 道琼斯
 - NAS.OTC: 纳斯达克综合指数（已失效）
 - VIX.OTC: VIX 波动率指数
+- SENSEX.OTC: 印度孟买 SENSEX 指数
 - VNI30.OTC: 越南 VN30 指数
 - JP225.OTC: 日经 225 指数
-- SENSEX.OTC: 印度孟买 SENSEX 指数
 
 ### 指数代码列表
 
