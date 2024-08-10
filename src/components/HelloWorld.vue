@@ -72,6 +72,13 @@ export default {
     // 399905.SZ: 中证500
     // 000852.SS: 中证1000
     // US500.OTC: 标普500
+    // US500F.OTC: 标普500指数期货
+    // US30.OTC: 道琼斯
+    // NAS.OTC: 纳斯达克综合指数（已失效）
+    // VIX.OTC: VIX波动率指数
+    // VNI30.OTC: 越南VN30指数
+    // JP225.OTC: 日经225指数
+    // SENSEX.OTC: 印度孟买SENSEX指数
     getDataFromWallstreet() {
       let stockIndex = "symbol,en_name,prod_name,last_px,px_change,px_change_rate,update_time";
       let indexStr = "000012.SH,000001.SH,399006.SZ,399300.SZ,399905.SZ,000852.SS,US500.OTC";
