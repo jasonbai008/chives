@@ -40,6 +40,8 @@ npm run build
 - SENSEX.OTC: 印度孟买 SENSEX 指数
 - VNI30.OTC: 越南 VN30 指数
 - JP225.OTC: 日经 225 指数
+- UK100.OTC: 英国富时 100 指数
+- USDCNH.OTC: 离岸人民币
 
 ### 指数代码列表
 
