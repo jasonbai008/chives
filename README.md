@@ -20,8 +20,8 @@ npm run build
 
 ### 数据来源
 
-1. 纳斯达克 100，来自腾讯财经（https://qt.gtimg.cn/q=usNDX）
-2. 其余指数，来自华尔街见闻（https://api-ddc-wscn.awtmt.com/market/real?fields=symbol,en_name,prod_name,last_px,px_change,px_change_rate,update_time&prod_code=US500.OTC）
+1. 纳斯达克 100，来自腾讯财经（[https://qt.gtimg.cn/q=usNDX](https://qt.gtimg.cn/q=usNDX)）
+2. 其余指数，来自华尔街见闻（[https://api-ddc-wscn.awtmt.com/market/real?fields=symbol,en_name,prod_name,last_px,px_change,px_change_rate,update_time&prod_code=US500.OTC](https://api-ddc-wscn.awtmt.com/market/real?fields=symbol,en_name,prod_name,last_px,px_change,px_change_rate,update_time&prod_code=US500.OTC)）
 
 ### 指数代码
 
