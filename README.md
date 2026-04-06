@@ -42,7 +42,8 @@ npm run build
 - JP225.OTC: 日经 225 指数
 - UK100.OTC: 英国富时 100 指数
 - USDCNH.OTC: 离岸人民币
+- XAUUSD.OTC: 现货黄金
 
 ### 指数代码列表
 
-https://www.ricequant.com/doc/rqdata/python/indices-dictionary.html
+https://quant.10jqka.com.cn/view/dataplatform/detail/512

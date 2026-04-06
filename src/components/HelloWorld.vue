@@ -19,14 +19,16 @@
           <!-- 左 -->
           <span>
             <!-- 国旗 -->
-            <img src="../assets/us.png" v-if="['US500', 'usNDX'].includes(item[0])" />
+            <img src="../assets/us.png" v-if="['US500', 'US500F', 'usNDX'].includes(item[0])" />
+            <img src="../assets/jpan.png" v-else-if="['JP225'].includes(item[0])" />
+            <img src="../assets/gold.png" v-else-if="['XAUUSD'].includes(item[0])" />
             <img src="../assets/china.png" v-else />
             <!-- 标题 -->
             <h4 v-if="item[0] === '000001.SH'">{{ item[1] }} {{ parseInt(item[2]) }}</h4>
             <h4 v-else>{{ item[1] }}</h4>
           </span>
           <!-- 涨跌幅 -->
-          <span :class="{ rate: true, fresh: freshFlag && !['US500', 'usNDX'].includes(item[0]) }" v-if="item[4] > 0">{{ item[4].toFixed(2) + " %" }}</span>
+          <span :class="{ rate: true, fresh: freshFlag && !['US500', 'usNDX'].includes(item[0]) }">{{ item[4].toFixed(2) + " %" }}</span>
         </div>
       </template>
     </div>
@@ -74,14 +76,15 @@ export default {
     // US500.OTC: 标普500
     // US500F.OTC: 标普500指数期货
     // US30.OTC: 道琼斯
-    // NAS.OTC: 纳斯达克综合指数（已失效）
-    // VIX.OTC: VIX波动率指数
     // VNI30.OTC: 越南VN30指数
     // JP225.OTC: 日经225指数
     // SENSEX.OTC: 印度孟买SENSEX指数
+    // XAUUSD.OTC: 现货黄金
+    // USDCNH.OTC: 离岸人民币
+    // VIX.OTC: VIX波动率指数
     getDataFromWallstreet() {
       let stockIndex = "symbol,en_name,prod_name,last_px,px_change,px_change_rate,update_time";
-      let indexStr = "000012.SH,000001.SH,399006.SZ,399300.SZ,399905.SZ,000852.SS,US500.OTC";
+      let indexStr = "000012.SH,000001.SH,399006.SZ,399300.SZ,399905.SZ,JP225.OTC,US500F.OTC,XAUUSD.OTC,US500.OTC";
       return fetch(`https://api-ddc-wscn.awtmt.com/market/real?fields=${stockIndex}&prod_code=${indexStr}`).then((response) => response.json());
     },
     getData() {
